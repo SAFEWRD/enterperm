@@ -17,7 +17,7 @@ VERSION_MINOR ?= 1
 VERSION_BUILD ?= 0
 
 VERSION ?= v$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_BUILD)
-VERSION_PACKAGE = $(REPOPATH/pkg/version)
+VERSION_PACKAGE = $(REPOPATH)/pkg/version
 
 GOOS ?= $(shell go env GOOS)
 GOARCH = amd64
@@ -35,7 +35,7 @@ GO_LDFLAGS += '
 EXECUTOR_PACKAGE = $(REPOPATH)/cmd/enterperm
 
 bin/enterperm: $(GO_FILES)
-	GOARCH=$(GOARCH) GOOS=linux CGO_ENABLED=0 go build -ldflags $(GO_LDFLAGS) -o $@ $(EXECUTOR_PACKAGE)
+	GOARCH=$(GOARCH) GOOS=$(GOOS) CGO_ENABLED=0 go build -ldflags $(GO_LDFLAGS) -o $@ $(EXECUTOR_PACKAGE)
 
 .PHONY: test
 test: bin/enterperm
