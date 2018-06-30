@@ -16,8 +16,8 @@ limitations under the License.
 
 package main
 
-import "fmt"
+import "github.com/SAFEWRD/enterperm/cmd/enterperm/cmd"
 
 func main() {
-	fmt.Println("tbd")
+	cmd.Execute()
 }
