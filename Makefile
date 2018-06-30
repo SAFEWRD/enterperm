@@ -37,6 +37,16 @@ EXECUTOR_PACKAGE = $(REPOPATH)/cmd/enterperm
 bin/enterperm: $(GO_FILES)
 	GOARCH=$(GOARCH) GOOS=$(GOOS) CGO_ENABLED=0 go build -ldflags $(GO_LDFLAGS) -o $@ $(EXECUTOR_PACKAGE)
 
+bin/enterperm-linux: $(GO_FILES)
+	GOARCH=$(GOARCH) GOOS=linux CGO_ENABLED=0 go build -ldflags $(GO_LDFLAGS) -o $@ $(EXECUTOR_PACKAGE)
+
+.PHONY: all
+all: bin/enterperm bin/enterperm-linux
+
 .PHONY: test
 test: bin/enterperm
 	go test -cover -v -timeout 60s `go list ./... | grep -v vendor`
+
+.PHONY: clean
+clean: 
+	rm bin/*
