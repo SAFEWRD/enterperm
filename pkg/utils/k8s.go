@@ -40,10 +40,13 @@ func GetClient() kubernetes.Interface {
 // GetClientExternal gets the kubernetes client from outside a cluster
 func GetClientExternal() kubernetes.Interface {
 	config, err := buildConfig()
+	if err != nil {
+		glog.Fatalln(err)
+	}
 
 	client, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		glog.Errorln(err)
+		glog.Fatalln(err)
 	}
 	return client
 }
